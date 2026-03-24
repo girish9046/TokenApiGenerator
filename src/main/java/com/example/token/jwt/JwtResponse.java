@@ -1,18 +1,16 @@
 package com.example.token.jwt;
 
+import org.springframework.stereotype.Component;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+@Component
 public class JwtResponse {
 
 	private String jwtToken;
-	
-    public JwtResponse(String jwtToken) {
-		this.setJwtToken(jwtToken);
-	}
-	public String getJwtToken() {
-		return jwtToken;
-	}
-	public void setJwtToken(String jwtToken) {
-		this.jwtToken = jwtToken;
-	}
+	private String message;
 
-	
 }
