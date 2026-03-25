@@ -1,4 +1,4 @@
-package com.example.token.controller;
+package com.jwt.token.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.token.error.UserNotFoundException;
-import com.example.token.jwt.JWTUtility;
-import com.example.token.jwt.JwtResponse;
-import com.example.token.jwt.model.Login;
-import com.example.token.jwt.model.User;
-import com.example.token.jwt.model.UserService;
+import com.jwt.token.error.UserNotFoundException;
+import com.jwt.token.jwt.JWTUtility;
+import com.jwt.token.jwt.JwtResponse;
+import com.jwt.token.model.Login;
+import com.jwt.token.model.User;
+import com.jwt.token.model.UserService;
 
 @RestController
 @RequestMapping("/api/student")

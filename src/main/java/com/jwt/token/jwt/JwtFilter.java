@@ -1,4 +1,4 @@
-package com.example.token.jwt;
+package com.jwt.token.jwt;
 
 import java.io.IOException;
 
@@ -10,8 +10,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.token.jwt.model.User;
-import com.example.token.jwt.model.UserService;
+import com.jwt.token.model.User;
+import com.jwt.token.model.UserService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

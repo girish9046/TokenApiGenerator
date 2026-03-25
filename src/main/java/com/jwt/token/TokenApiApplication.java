@@ -1,4 +1,4 @@
-package com.example.token;
+package com.jwt.token;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

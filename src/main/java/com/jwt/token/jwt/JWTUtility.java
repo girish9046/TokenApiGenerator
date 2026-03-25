@@ -1,4 +1,4 @@
-package com.example.token.jwt;
+package com.jwt.token.jwt;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.example.token.jwt.model.User;
+import com.jwt.token.model.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

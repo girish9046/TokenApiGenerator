@@ -1,4 +1,4 @@
-package com.example.token.error;
+package com.jwt.token.error;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

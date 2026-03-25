@@ -1,4 +1,4 @@
-package com.example.token.jwt.model;
+package com.jwt.token.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,8 +1,8 @@
-package com.example.token.jwt.model;
+package com.jwt.token.model;
 
 import org.springframework.stereotype.Service;
 
-import com.example.token.error.UserNotFoundException;
+import com.jwt.token.error.UserNotFoundException;
 
 @Service
 public class UserServiceImpl implements UserService {

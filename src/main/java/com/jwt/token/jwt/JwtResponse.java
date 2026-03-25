@@ -1,4 +1,4 @@
-package com.example.token.jwt;
+package com.jwt.token.jwt;
 
 import org.springframework.stereotype.Component;
 
