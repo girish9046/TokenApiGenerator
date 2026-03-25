@@ -2,6 +2,8 @@ package com.example.token.jwt;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -18,6 +20,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
+
+	private static final Logger logger = LoggerFactory.getLogger(JwtFilter.class);
 
 	private JWTUtility jwtUtility;
 
@@ -40,10 +44,11 @@ public class JwtFilter extends OncePerRequestFilter {
 			token = authorization.substring(7);
 			userName = jwtUtility.getUsernameFromToken(token);
 		}
-		System.err.println("token userName : " + userName);
+		logger.info("..........token userName......... {}", userName);
 		if (null != userName && SecurityContextHolder.getContext().getAuthentication() == null) {
 			User user = userService.getUserByName(userName);
-			System.err.println("token userName : " + user.getUserName());
+			logger.info("..........token userName......... {}", userName);
+
 			if (jwtUtility.isValidateToken(token, user)) {
 				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 						user, null);

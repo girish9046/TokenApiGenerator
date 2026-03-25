@@ -4,42 +4,26 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 public class User {
 	@Id
 	@Column(name = "username")
 	private String userName;
 	@Column(name = "password")
 	private String password;
+	@Column(name = "role")
+	private String role;
 
-	public User() {
-	}
-
-	public User(String userName, String password) {
-		super();
-		this.userName = userName;
-		this.password = password;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	
 
 	
 }

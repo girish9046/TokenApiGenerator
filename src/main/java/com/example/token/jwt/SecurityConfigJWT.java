@@ -21,36 +21,46 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class SecurityConfigJWT {
 
+	private JwtFilter jwtFilter;
+	// private CustomUserDetailsService userDetailsService;
 
-	
-	  private JwtFilter jwtFilter;
-	    
-			// Constructor for injection (Spring automatically injects SecurityConfigJWT here)
-			public SecurityConfigJWT(JwtFilter jwtFilter) {
-				this.jwtFilter = jwtFilter;
-			}
-	    @Bean
-	    public SecurityFilterChain securityFilterChain(HttpSecurity http)  {
-	        http
-	            .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless APIs
-	            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Use stateless sessions
-	            .authorizeHttpRequests(auth -> auth
-	                .requestMatchers("/api/student/login/**","/api/student/register/**").
-	                permitAll() // Allow public access to authentication endpoints
-	                .anyRequest().authenticated() // Secure all other endpoints
-	            );
+	// Constructor for injection (Spring automatically injects SecurityConfigJWT
+	// here)
+	public SecurityConfigJWT(JwtFilter jwtFilter) {
+		this.jwtFilter = jwtFilter;
+		// this.userDetailsService = userDetailsService;
+	}
 
-	        // Add the custom JWT filter before the standard UsernamePasswordAuthenticationFilter
-	        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+//	    	http
+//            .csrf(AbstractHttpConfigurer::disable)
+//            .authorizeHttpRequests(auth -> auth
+//                .anyRequest().authenticated()
+//            )
+//            .httpBasic(Customizer.withDefaults());
 
-	        return http.build();
-	    }
-	    
-	    
-	    
-	
-	   
-	   
+		http.csrf(csrf -> csrf.disable()) // Disable CSRF for stateless APIs
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Use
+																												// stateless
+																												// sessions
+				.authorizeHttpRequests(
+						auth -> auth.requestMatchers("/api/student/token/**", "/api/student/register/**").permitAll() // Allow
+																														// public
+																														// access
+																														// to
+																														// authentication
+																														// endpoints
+								.anyRequest().authenticated() // Secure all other endpoints
+				);
+
+		// Add the custom JWT filter before the standard
+		// UsernamePasswordAuthenticationFilter
+		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+		return http.build();
+	}
+
 //    @Bean
 //    public SecurityFilterChain  securityFilterChain(HttpSecurity http) throws Exception {
 //    	http.csrf(csrf -> csrf.disable())
@@ -71,29 +81,39 @@ public class SecurityConfigJWT {
 //
 //    }
 
-    // You can also define other beans, like a PasswordEncoder
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	// Configure the AuthenticationProvider to use the custom UserDetailsService and
+	// passwordEncoder
+//	    @Bean
+//	    public AuthenticationProvider authenticationProvider() {
+//	        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
+//	        provider.setPasswordEncoder(passwordEncoder());
+//	        return provider;
+//	    }
 
-    // To expose the AuthenticationManager as a bean, you can create a bean of type AuthenticationManager
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-    
-    //To allow cross origin request access 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-      CorsConfiguration configuration = new CorsConfiguration();
-      configuration.setAllowedOrigins(Arrays.asList("*"));
-      configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","OPTIONS","PATCH", "DELETE"));
-      configuration.setAllowCredentials(true);
-      configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
-      configuration.setMaxAge((long) 10);
-      UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-      source.registerCorsConfiguration("/**", configuration);
-      return source;
-    }
+	// You can also define other beans, like a PasswordEncoder
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	// To expose the AuthenticationManager as a bean, you can create a bean of type
+	// AuthenticationManager
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) {
+		return authenticationConfiguration.getAuthenticationManager();
+	}
+
+	// To allow cross origin request access
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTIONS", "PATCH", "DELETE"));
+		configuration.setAllowCredentials(true);
+		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+		configuration.setMaxAge((long) 10);
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
 }
